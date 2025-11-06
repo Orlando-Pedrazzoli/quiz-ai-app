@@ -47,10 +47,11 @@ export async function POST(request: NextRequest) {
       fileName: file.name,
       fileSize: file.size,
     });
-  } catch (error: any) {
-    console.error('Erro ao processar PDF:', error);
+  } catch (err: unknown) {
+    console.error('Erro ao processar PDF:', err);
+    const errorMessage = err instanceof Error ? err.message : 'Erro ao processar arquivo';
     return NextResponse.json(
-      { error: error.message || 'Erro ao processar arquivo' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

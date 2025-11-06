@@ -37,8 +37,9 @@ export default function FileUpload({ onTextExtracted, onError }: FileUploadProps
 
         const data = await response.json();
         onTextExtracted(data.text, file.name);
-      } catch (error: any) {
-        onError(error.message);
+      } catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : 'Erro ao processar arquivo';
+        onError(errorMessage);
         setUploadedFile(null);
       } finally {
         setUploading(false);

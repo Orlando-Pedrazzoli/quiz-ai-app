@@ -66,8 +66,9 @@ export default function Home() {
       setQuiz(quizData);
       setUserAnswers(new Array(quizData.questions.length).fill(-1));
       setStep('quiz');
-    } catch (error: any) {
-      setError(error.message);
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Erro ao gerar quiz';
+      setError(errorMessage);
       setStep('upload');
     }
   };

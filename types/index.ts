@@ -10,7 +10,7 @@ export interface Quiz {
   id: string;
   title: string;
   questions: Question[];
-  createdAt: Date;
+  createdAt: string;
 }
 
 export interface QuizResult {

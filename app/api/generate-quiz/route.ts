@@ -17,9 +17,10 @@ export async function POST(request: NextRequest) {
     // Valida o texto
     try {
       validateText(text);
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Erro na validação';
       return NextResponse.json(
-        { error: error.message },
+        { error: errorMessage },
         { status: 400 }
       );
     }
@@ -41,10 +42,11 @@ export async function POST(request: NextRequest) {
     };
 
     return NextResponse.json(quiz);
-  } catch (error: any) {
-    console.error('Erro na API:', error);
+  } catch (err: unknown) {
+    console.error('Erro na API:', err);
+    const errorMessage = err instanceof Error ? err.message : 'Erro ao gerar quiz';
     return NextResponse.json(
-      { error: error.message || 'Erro ao gerar quiz' },
+      { error: errorMessage },
       { status: 500 }
     );
   }
